@@ -31,7 +31,7 @@ export default function Dashboard(){
     async function upSanta(){
         "use server"
 
-        await
+        
     }
 
     useEffect(() => {
