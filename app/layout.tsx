@@ -27,8 +27,16 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{
+          backgroundImage: "url('/santa-bg.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '100vh',
+        }}
       >
-        {children}
+        
+        <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>{children}</div>
       </body>
     </html>
   );

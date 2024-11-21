@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+clutch-santa-firebase-adminsdk-6h04l-521011a358.json
 # dependencies
 /node_modules
 /.pnp
@@ -31,7 +31,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
+.env.local
 # vercel
 .vercel
 
