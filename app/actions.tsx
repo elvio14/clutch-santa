@@ -16,7 +16,7 @@ async function hashPass(pass: string): Promise<string> {
   return hashedPassword;
 }
 
-async function createUser(user: string, name: string, pass: string, sessionID: string){
+async function createUser(user: string, name: string, pass: string, sessionID: string, isAdmin?: boolean){
   try{
     const hashed = await hashPass(pass)
     await setDoc(doc(db, "users", user), {
@@ -25,7 +25,8 @@ async function createUser(user: string, name: string, pass: string, sessionID: s
       password: hashed,
       wishes: [],
       giving: "",
-      sessionID: sessionID
+      sessionID: sessionID,
+      isAdmin: isAdmin || false
     });
     console.log("User doc written with docref: ", user);
   }catch(e){
@@ -35,26 +36,23 @@ async function createUser(user: string, name: string, pass: string, sessionID: s
 
 async function createSS(user: string, name: string, pass: string, isJoining: string){
     console.log("Running createSS...")
-    let sessionID;
     try { 
       const hashed = await hashPass(pass)
       
-      const docSessionRef = await addDoc(collection(db, "owners"), {
+      await setDoc(doc(db, "owners", user), {
         username: user,
         displayName: name,
-        passwrod: hashed,
-        users: [""],
-      })
-      console.log("Session doc written with ID: ", docSessionRef.id);
-      sessionID = docSessionRef.id
+        password: hashed,
+      });
+      console.log("Session doc written with ID: ", user);
       if(isJoining === "joining"){      
-        createUser(user, name, pass, sessionID)
+        createUser(user, name, pass, user, true)
       }
     } catch (e) {
       console.error("Error adding document: ", e);
     }
 
-    return sessionID
+    return user
 }
 
 async function getUsersBySessionID(sessionID: string){
@@ -86,9 +84,19 @@ async function getUserData(id: string): Promise<any | null>{
     console.error('Error getUserData: ' + e)
     return null
   }
+}
 
-
-  return data
+async function setGiving(from: string, to: string){
+  try { 
+    const docRef = doc(db, "users", from)
+    await updateDoc(docRef, {
+      giving: to
+    });
+    return true
+  } catch (e) {
+    console.error("Error adding document: ", e);
+    return false
+  }
 }
 
 async function getUserDataByUsername(username: string){
@@ -162,4 +170,4 @@ async function userLogin(userID:string, username: string, password: string){
   }
   return false
 }
-export { hashPass, createUser, createSS, getUsersBySessionID, getUserData, getUserDataByUsername, addWish, userLogin, getUserIDByUsername }
+export { setGiving, hashPass, createUser, createSS, getUsersBySessionID, getUserData, getUserDataByUsername, addWish, userLogin, getUserIDByUsername }

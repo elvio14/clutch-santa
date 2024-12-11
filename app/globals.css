@@ -97,6 +97,15 @@ a:hover{
   color: rgb(146, 255, 127)
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* WebKit browsers */
+}
+
 @layer base {
   * {
     @apply border-border;

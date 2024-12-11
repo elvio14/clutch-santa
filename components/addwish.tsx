@@ -63,7 +63,7 @@ export default function AddWish({userID} : {userID?: string}){
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ray Ban Sunglasses.." {...field} />
+                        <Input placeholder="My first wish!" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -76,7 +76,7 @@ export default function AddWish({userID} : {userID?: string}){
                   name="link"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>E-Commerce Link</FormLabel>
+                      <FormLabel>Amazon Link</FormLabel>
                       <FormControl>
                         <Input type="link" placeholder="https://amazon.ca/..." {...field} />
                       </FormControl>

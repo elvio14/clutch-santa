@@ -45,8 +45,8 @@ export default function Dashboard(){
   }
 
   useEffect(()=>{
-    if(data !== null){
-      getGiving(data.giving)
+    if(data !== null && data != undefined){
+      if(data.giving !== ""){getGiving(data.giving)}
       setLoading(false)
     }
   }, [data])
@@ -57,7 +57,7 @@ export default function Dashboard(){
     )
   } else
   return(
-      <div className="w-full max-w-screen-lg sm:max-w-none grid grid-rows-[1fr_3fr] items-center
+      <div className="w-full max-w-screen-lg sm:max-w-none grid grid-rows-[100px_1fr] items-center
        justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
           <div className="items-center justify-items-center">
             {data ? (
@@ -93,9 +93,12 @@ export default function Dashboard(){
             )
             }
           </div>
-          <div> 
+          <div className="justify-items-center"> 
             <Wishlist data={data.wishes} render={activeTab} add={true} userID={params?.id}/>
-            <Wishlist data={giving?.wishes} render={!activeTab} add={false} userID={giving?.id}/>
+            {giving && giving.wishes ?
+            <Wishlist data={giving?.wishes} render={!activeTab} add={false} userID={giving?.id}/> :
+            <p>Wishlist empty</p>
+            }
           </div>
       </div>
   )

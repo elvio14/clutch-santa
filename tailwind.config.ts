@@ -55,7 +55,16 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		keyframes: {
+			spinWithCentering: {
+			  '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+			  '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+			},
+		  },
+		animation: {
+			spinWithCentering: 'spinWithCentering 1s linear infinite',
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
